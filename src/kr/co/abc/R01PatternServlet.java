@@ -1,6 +1,9 @@
 package kr.co.abc;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.abc.board.service.R01Service;
 import kr.co.abc.board.service.R02Board_write_service;
+import kr.co.abc.board.service.R03Board_select_service;
 
 
 /**
@@ -58,15 +62,22 @@ public class R01PatternServlet extends HttpServlet {
 	protected void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		R01Service ser = null;
+		String ui = null;
 		String uri = request.getRequestURI();
+		R01Service sv = null;
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out =  response.getWriter();
+		System.out.println("ui주소: " + ui);
 		if(uri.equals("/WebReview/boardwrite.abc")) {			// 글 작성
 			System.out.println("글작성");
-			ser = new R02Board_write_service();
-			ser.execute(request, response);
-			
-		}else if(uri.equals("/WebReview/boardlist.abc")) {		// 글 목록 조회
+			sv = new R02Board_write_service();
+			sv.execute(request, response);
+			ui = "/boardselect.abc";
+		}else if(uri.equals("/WebReview/boardselect.abc")) {		// 글 목록 조회
 			System.out.println("글목록조회");
+			sv = new R03Board_select_service();
+			sv.execute(request, response);
+			ui = "/02-board/R02Board_list.jsp";
 		}else if(uri.equals("/WebReview/boarddetail.abc")) {		// 글 내용 조회
 			System.out.println("글내용조회");
 		}else if(uri.equals("/WebReview/boardupdate.abc")) {		// 글 수정
@@ -74,5 +85,7 @@ public class R01PatternServlet extends HttpServlet {
 		}else if(uri.equals("/WebReview/boarddelete.abc")) {		// 글 삭제
 			System.out.println("글작성");
 		}
+		RequestDispatcher dp = request.getRequestDispatcher(ui);
+		dp.forward(request, response);
 	}
 }

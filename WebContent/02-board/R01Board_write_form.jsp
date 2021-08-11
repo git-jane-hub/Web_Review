@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h2>글 작성 페이지</h2><hr>
-	<form action = "/WebReview/boardwrite.abc">
+	<form action = "/WebReview/boardwrite.abc" method = "post">
 		<table border = "1">
 		<thead>
 			<tr>
@@ -22,8 +22,7 @@
 			<tr>
 				<th>본문</th>
 				<td>
-					<textarea name = "bContent" cols = "50" row = "10" required>
-					</textarea>
+					<textarea name = "bContent" cols = "50" row = "10" required></textarea>
 				</td>
 			</tr>
 			<tr>

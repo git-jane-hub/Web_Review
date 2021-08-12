@@ -59,7 +59,7 @@ public class R02BoardDAO {
 			}
 		}
 		return result;
-	}
+	}// end write()
 	
 	public List<R01BoardVO> boardSelect() {
 		List<R01BoardVO> boardList = new ArrayList<>();
@@ -100,5 +100,44 @@ public class R02BoardDAO {
 			}
 		}
 		return boardList;
-	}
+	}// end boardSelect()
+	
+	public R01BoardVO boardDetail(String bId) {
+		R01BoardVO board = new R01BoardVO();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			String sql = "SELECT * FROM rboard WHERE bId = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				board.setbId(rs.getInt("bId"));
+				board.setbName(rs.getString("bName"));
+				board.setbTitle(rs.getString("bTitle"));
+				board.setbContent(rs.getString("bContent"));
+				board.setbDate(rs.getTimestamp("bDate"));
+				board.setbHit(rs.getInt("bHit"));
+			}
+		}catch(Exception e){
+			System.out.println("에러: " + e);
+		}finally {
+			try {
+				if(con != null && !con.isClosed()) {
+					con.close();
+				}
+				if(pstmt != null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+				if(rs != null && !rs.isClosed()) {
+					rs.close();
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return board;
+	}// end boardDetail
 }

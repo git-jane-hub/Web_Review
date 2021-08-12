@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>게시글 본문</h2><hr>
+	<h2>글 수정</h2><hr>
+	<form action = "/WebReview/boardupdateok.abc" method = "post">
 		<table border = "1">
 			<tr>
 				<td>글번호</td>
@@ -21,11 +22,11 @@
 			</tr>
 			<tr>
 				<td>글제목</td>
-				<td>${board.bTitle }</td>
+				<td><input type = "text" name = "bTitle" value = "${board.bTitle }" /></td>
 			</tr>
 			<tr>
 				<td>본문</td>
-				<td><textarea cols = "10" rows = "10" readonly>${board.bContent }</textarea></td>
+				<td><textarea cols = "10" rows = "10">${board.bContent }</textarea></td>
 			</tr>
 			<tr>
 				<td>글쓴이</td>
@@ -33,17 +34,14 @@
 			</tr>
 			<tr>
 				<td>
+					<input type = "submit" value = "수정완료" />
+					<input type = "reset" value = "초기화" />
 					<a href = "/WebReview/boardselect.abc">
 						<input type = "button" value = "글 목록" />
 					</a>
-					<form action = "/WebReview/boardupdate.abc?bId=${board.bId }" method = "post">
-						<input type = "submit" value = "글 수정" />
-					</form>
-					<form action = "/WebReview/boarddelete.abc" method = "post">
-						<input type = "submit" value = "글 삭제" />
-					</form>
 				</td>
 			</tr>
 		</table>
+	</form>
 </body>
 </html>

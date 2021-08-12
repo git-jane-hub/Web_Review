@@ -23,7 +23,7 @@
 		<c:forEach var = "board" items = "${boardList }">
 			<tr>
 				<td>${board.bId }</td>
-				<td>${board.bTitle }</td>
+				<td><a href ="/WebReview/boarddetail.abc?bId=${board.bId }">${board.bTitle }</a></td>
 				<td>${board.bName }</td>
 				<td>${board.bDate }</td>
 				<td>${board.bHit }</td>
@@ -31,5 +31,9 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<form action = "/WebReview/userlogout.abc" method = "post">
+		<a href = "/WebReview/reqboardwrite.abc"><input type = "button" value = "글 작성" /></a>
+		<input type = "submit" value = "로그아웃" />
+	</form>
 </body>
 </html>

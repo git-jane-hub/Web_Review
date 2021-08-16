@@ -17,6 +17,7 @@ import kr.co.abc.board.service.R01Service;
 import kr.co.abc.board.service.R02Board_write_service;
 import kr.co.abc.board.service.R03Board_select_service;
 import kr.co.abc.board.service.R04Board_detail_service;
+import kr.co.abc.board.service.R07Board_paging_service;
 import kr.co.abc.user.service.R01UService;
 import kr.co.abc.user.service.R02UserLoginService;
 import kr.co.abc.user.service.R03UserJoinService;
@@ -115,7 +116,10 @@ public class R01PatternServlet extends HttpServlet {
 			ui = "/boardselect.abc";
 		}else if(uri.equals("/WebReview/boardselect.abc")) {		// 글 목록 조회
 			System.out.println("글목록조회");
-			sv = new R03Board_select_service();
+//			sv = new R03Board_select_service();
+//			sv.execute(request, response);
+//			ui = "/02-board/R02Board_list.jsp";
+			sv = new R07Board_paging_service();
 			sv.execute(request, response);
 			ui = "/02-board/R02Board_list.jsp";
 		}else if(uri.equals("/WebReview/boarddetail.abc")) {		// 글 내용 조회

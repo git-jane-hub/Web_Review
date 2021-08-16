@@ -140,4 +140,35 @@ public class R02BoardDAO {
 		}
 		return board;
 	}// end boardDetail
+	
+	public List<R01BoardVO> getPageList(){
+		  List<R01BoardVO> boardList = new ArrayList<R01BoardVO>();
+		  Connection con = null;
+		  PreparedStatement pstmt = null;
+		  ResultSet rs = null;
+		  try {
+			  R01BoardVO board = new R01BoardVO();
+			  con = ds.getConnection();
+			  String sql = "SELECT * FROM jspboard ORDER BY bId LIMIT ?, 10";
+			  pstmt = con.prepareStatement(sql);
+//			  pstmt.setInt(1, );
+		  }catch(Exception e) {
+			  e.printStackTrace();
+		  }finally {
+			  try {
+				  if(con != null && !con.isClosed()) {
+					  con.close();
+				  }
+				  if(pstmt != null && !pstmt.isClosed()) {
+					  pstmt.close();
+				  }
+				  if(rs != null && !rs.isClosed()) {
+					  rs.close();
+				  }
+			  }catch(Exception e) {
+				  e.printStackTrace();
+			  }
+		  }
+		  return boardList;
+	}
 }

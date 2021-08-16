@@ -141,7 +141,7 @@ public class R02BoardDAO {
 		return board;
 	}// end boardDetail
 	
-	public List<R01BoardVO> getPageList(){
+	public List<R01BoardVO> getPageList(int currentPage){
 		  List<R01BoardVO> boardList = new ArrayList<R01BoardVO>();
 		  Connection con = null;
 		  PreparedStatement pstmt = null;
@@ -149,9 +149,19 @@ public class R02BoardDAO {
 		  try {
 			  R01BoardVO board = new R01BoardVO();
 			  con = ds.getConnection();
-			  String sql = "SELECT * FROM jspboard ORDER BY bId LIMIT ?, 10";
+			  String sql = "SELECT * FROM rboard ORDER BY bId LIMIT ?, 10";
 			  pstmt = con.prepareStatement(sql);
-//			  pstmt.setInt(1, );
+			  pstmt.setInt(1, (currentPage - 1) * 10);
+			  pstmt.executeQuery();
+			  while(rs.next()) {
+				  board.setbId(rs.getInt("bId"));
+				  board.setbName(rs.getString("bName"));
+				  board.setbTitle(rs.getString("bTitle"));
+				  board.setbContent(rs.getString("bContent"));
+				  board.setbDate(rs.getTimestamp("bDate"));
+				  board.setbHit(rs.getInt("bHit"));
+				  boardList.add(board);
+			  }
 		  }catch(Exception e) {
 			  e.printStackTrace();
 		  }finally {
